@@ -1,2 +1,5 @@
+import voice_engine as ve
+
 if __name__ == '__main__':
-    print("Main file")
+    # ve.recognize(ve.take_command())
+    pass

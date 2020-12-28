@@ -73,7 +73,7 @@ def gui():
     try_commands.configure(font=("Arial", 10), fg="#696969")
 
     listen_button_image = PhotoImage(file=r"images/microphone.png")
-    listen_button = tk.Button(content_frame, image=listen_button_image, command=None)
+    listen_button = tk.Button(content_frame, image=listen_button_image, relief=tk.FLAT, command=None)
     listen_button.grid(row=3, padx=10, pady=5)
 
     status_bar = tk.Frame(window)
@@ -84,11 +84,10 @@ def gui():
     status_text.set("Status bar")
     status.pack(fill=tk.X)
 
-    # TODO: window size and resizing
     window.config(menu=dropdown_menu)
     # window.minsize(970, 555)
     # window.maxsize(1400, 530)
-    # window.resizable(480, 1400)
+    window.resizable(False, False)
     window.mainloop()
 
 

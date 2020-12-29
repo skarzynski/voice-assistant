@@ -20,7 +20,7 @@ def init_conf():
         cfg.set('user', 'lang', 'en')
 
         cfg.add_section('apps')
-        cfg.set('apps', 'spotify', 'C:\\ProgramFiles\\Spotify\\Spotify.exe')
+        cfg.set('apps', 'spotify', 'C:/Users/szymo/AppData/Roaming/Spotify/Spotify.exe')
 
         cfg.write(cfg_file)
         cfg_file.close()
@@ -40,4 +40,22 @@ def load_conf():
 
     for app in cfg['apps']:
         apps[app] = cfg['apps'][app]
-    pass
+
+
+def save_conf():
+    cfg = configparser.ConfigParser()
+
+    cfg.read('config.ini')
+
+    cfg.set('user', 'username', username)
+    cfg.set('user', 'lang', lang["out_lang"])
+
+    for app in cfg['apps']:
+        cfg.remove_option('apps', app)
+
+    for app in apps:
+        cfg.set('apps', app, apps[app])
+
+    cfg_file = open(cfg_file_name, 'w')
+    cfg.write(cfg_file)
+    cfg_file.close()

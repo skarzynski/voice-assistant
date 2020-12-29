@@ -2,9 +2,8 @@ import os
 import gtts
 import speech_recognition as sr
 import playsound
-import langs
+from config import lang
 
-lang = langs.en
 
 def take_command():
     recognizer = sr.Recognizer()

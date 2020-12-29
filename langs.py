@@ -33,7 +33,8 @@ en = {
     "delete": "Delete",
     "del_confirm1": "Are you sure you want to delete",
     "del_confirm2": "from list?",
-    "save_confirm": "Are you sure you want to save changes to config file?"
+    "save_confirm": "Are you sure you want to save changes to config file?",
+    "exit_confirm": "If you close without saving, changes will be lost"
 }
 
 pl = {
@@ -71,7 +72,8 @@ pl = {
     "delete": "Usuń",
     "del_confirm1": "Jesteś pewien, że chcesz usunąć",
     "del_confirm2": "z listy?",
-    "save_confirm": "Jesteś pewien, że chcesz zapisać zmiany do pliku konfiguracyjnego?"
+    "save_confirm": "Jesteś pewien, że chcesz zapisać zmiany do pliku konfiguracyjnego?",
+    "exit_confirm": "Jeśli wyjdziesz bez zapisywania, zmiany zostaną utracone"
 }
 
 languages = {

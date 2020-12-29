@@ -1,16 +1,16 @@
-from tkinter import filedialog, simpledialog, messagebox
-from tkinter import PhotoImage
-import tkinter as tk
-import tkinter.ttk as ttk
 import os
-import pickle
+import sys
+import tkinter as tk
+from tkinter import PhotoImage
+from tkinter import filedialog, simpledialog, messagebox
+
 import config
 from langs import languages
-import sys
+
+changes = False
 
 
 def gui():
-
     def restart_app():
         app = sys.executable
         os.execl(app, app, *sys.argv)
@@ -24,8 +24,12 @@ def gui():
         modal_window.protocol("WM_DELETE_WINDOW", close_modal)
 
     def close_modal():
-        window.wm_attributes("-disabled", False)
-        modal_window.destroy()
+        global changes
+        exit_confirm = True if not changes else messagebox.askokcancel(config.lang["exit"], config.lang["exit_confirm"])
+        if exit_confirm:
+            window.wm_attributes("-disabled", False)
+            modal_window.destroy()
+            changes = False
 
     def open_help():
         create_modal()
@@ -39,6 +43,8 @@ def gui():
 
     def open_settings():
         create_modal()
+        global changes
+        changes = False
         apps_temp = config.apps.copy()
         username_var = tk.StringVar()
         username_label = tk.Label(modal_window, text=config.lang["username"])
@@ -69,13 +75,16 @@ def gui():
         edit_button = tk.Button(apps_buttons, text=config.lang["edit"], command=lambda: edit_app(apps_list, apps_temp))
         edit_button.pack(side=tk.LEFT, padx=5)
 
-        remove_button = tk.Button(apps_buttons, text=config.lang["remove"], command=lambda: delete_app(apps_list, apps_temp))
+        remove_button = tk.Button(apps_buttons, text=config.lang["remove"],
+                                  command=lambda: delete_app(apps_list, apps_temp))
         remove_button.pack(side=tk.LEFT, padx=5)
 
-        save_button = tk.Button(modal_window, text=config.lang["save_config"], command=lambda: save_config_to_file(apps_temp, username_var.get(), lang_var.get()))
+        save_button = tk.Button(modal_window, text=config.lang["save_config"],
+                                command=lambda: save_config_to_file(apps_temp, username_var.get(), lang_var.get()))
         save_button.grid(row=4, columnspan=2, pady=10)
 
     def add_app(apps_list, apps_temp):
+        global changes
         name = simpledialog.askstring(config.lang["name"], config.lang["enter_app_name"])
         if name is not None:
             name = name.lower()
@@ -84,6 +93,7 @@ def gui():
                 if name not in apps_temp:
                     apps_temp[name] = path
                     apps_list.insert(tk.END, name.capitalize())
+                    changes = True
                 else:
                     messagebox.showerror(config.lang["error"], f"{name.capitalize()} {config.lang['already_on_list']}")
             else:
@@ -92,19 +102,24 @@ def gui():
             messagebox.showerror(config.lang["error"], config.lang["err_enter_app_name"])
 
     def edit_app(apps_list, apps_temp):
+        global changes
         name = apps_list.get(apps_list.curselection()).lower()
         path = filedialog.askopenfilename()
         if path != "":
             apps_temp[name] = path
+            changes = True
         else:
             messagebox.showerror(config.lang["error"], config.lang["err_choose_exe"])
 
     def delete_app(apps_list, apps_temp):
+        global changes
         name = apps_list.get(apps_list.curselection()).lower()
-        delete_confirmed = messagebox.askyesno(config.lang["delete"], f"{config.lang['del_confirm1']} {name.capitalize()} {config.lang['del_confirm2']}")
+        delete_confirmed = messagebox.askyesno(config.lang["delete"],
+                                               f"{config.lang['del_confirm1']} {name.capitalize()} {config.lang['del_confirm2']}")
         if delete_confirmed:
             del apps_temp[name]
             apps_list.delete(apps_list.curselection())
+            changes = True
 
     def save_config_to_file(new_apps_list, new_username, new_lang):
         save_confirmed = messagebox.askyesno(config.lang["save_config"], config.lang["save_confirm"])

@@ -4,33 +4,70 @@ import tkinter as tk
 import tkinter.ttk as ttk
 import os
 import pickle
-import langs
+from config import lang, apps
+from langs import languages
 
-lang = langs.pl
 
 def gui():
-    global help_window
 
-    def close_help():
+    def create_modal():
+        window.wm_attributes("-disabled", True)
+        global modal_window
+        modal_window = tk.Toplevel(window)
+        modal_window.minsize(400, 400)
+        modal_window.transient(window)
+        modal_window.protocol("WM_DELETE_WINDOW", close_modal)
+
+    def close_modal():
         window.wm_attributes("-disabled", False)
-        global help_window
-        help_window.destroy()
+        modal_window.destroy()
 
     def open_help():
-        window.wm_attributes("-disabled", True)
-        global help_window
-        help_window = tk.Toplevel(window)
-        help_window.minsize(400, 400)
-        help_window.transient(window)
-        help_window.protocol("WM_DELETE_WINDOW", close_help)
-
-        help_label = tk.Label(help_window, text=lang["about_text"])
+        create_modal()
+        help_label = tk.Label(modal_window, text=lang["about_text"])
         help_label.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
 
-    #     option = Option(place, dateDay, dateMonth, numberOfDays, countDeaths, sortDeaths)
-    #     if option not in options:
-    #         previousOptions.insert(tk.END, option)
-    #         options.append(option)
+    def open_commands():
+        create_modal()
+        commands = tk.Label(modal_window, text=lang["all_commands"])
+        commands.pack(pady=10)
+
+    def open_settings():
+        create_modal()
+
+        # TODO: Add username change setting
+
+        lang_var = tk.StringVar()
+        lang_label = tk.Label(modal_window, text=f"{lang['language']}:")
+        lang_value = tk.OptionMenu(modal_window, lang_var, *(languages.keys()))
+        lang_label.grid(row=0, column=0, sticky=tk.W, pady=10, padx=10)
+        lang_value.grid(row=0, column=1, pady=10, padx=10)
+        lang_var.set(lang["full_lang"])
+
+        apps_list = tk.Listbox(modal_window)
+        for app in apps:
+            apps_list.insert(tk.END, app.capitalize())
+        apps_list.grid(row=1, columnspan=2)
+        apps_list.config(width=65, height=15)
+
+        apps_buttons = tk.Frame(modal_window)
+        apps_buttons.grid(row=2, columnspan=2, pady=10, padx=10)
+
+        # TODO: Add app function
+        add_button = tk.Button(apps_buttons, text="Add", command=None)
+        add_button.pack(side=tk.LEFT, padx=5)
+
+        # TODO: Edit app function
+        edit_button = tk.Button(apps_buttons, text="Edit", command=None)
+        edit_button.pack(side=tk.LEFT, padx=5)
+
+        # TODO: Remove app function
+        remove_button = tk.Button(apps_buttons, text="Remove", command=None)
+        remove_button.pack(side=tk.LEFT, padx=5)
+
+        # TODO: Save settings function
+        save_button = tk.Button(modal_window, text="Save", command=None)
+        save_button.grid(row=3, columnspan=2, pady=10)
 
     window = tk.Tk()
     window.title(lang["title"])
@@ -38,14 +75,14 @@ def gui():
     dropdown_menu = tk.Menu(window)
 
     file_menu = tk.Menu(dropdown_menu, tearoff=0)
-    file_menu.add_command(label=lang["settings"], command=None)
+    file_menu.add_command(label=lang["settings"], command=open_settings)
     file_menu.add_separator()
     file_menu.add_command(label=lang["exit"], command=window.quit)
 
     dropdown_menu.add_cascade(label=lang["file"], menu=file_menu)
 
     help_menu = tk.Menu(dropdown_menu, tearoff=0)
-    help_menu.add_command(label=lang["commands"], command=None)
+    help_menu.add_command(label=lang["commands"], command=open_commands)
     help_menu.add_command(label=lang["about"], command=open_help)
 
     dropdown_menu.add_cascade(label=lang["help"], menu=help_menu)
@@ -87,8 +124,6 @@ def gui():
     status.pack(fill=tk.X)
 
     window.config(menu=dropdown_menu)
-    # window.minsize(970, 555)
-    # window.maxsize(1400, 530)
     window.resizable(False, False)
     window.mainloop()
 

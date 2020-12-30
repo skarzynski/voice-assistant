@@ -7,6 +7,7 @@ cfg_file_name = "config.ini"
 username = "user"
 lang = langs.en
 apps = dict()
+weatherapi_key = "5e8d4bc583894415b4f111323203012"
 
 
 def init_conf():

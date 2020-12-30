@@ -17,10 +17,12 @@ def recognize(audio):
     try:
         print(f"{lang['recognizing']}...")
         stmt = recognizer.recognize_google(audio, language=lang["in_lang"])
-        response(f"You said: {stmt}")
+        # response(f"You said: {stmt}")
+        return stmt
     except Exception as e:
         print(e)
         response(lang["unable_to_recognize"])
+        return None
 
 
 def response(text):

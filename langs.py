@@ -12,7 +12,7 @@ en = {
     "help": "Help",
     "push_button": "Push button and say something",
     "previous_command": "Previous command",
-    "try_commands": "Try: \"Hello\"\nTry: \"What time is it?\"\nTry: \"Open notepad\"",
+    "try_commands": "Try: \"Hello\"\nTry: \"What time is it?\"\nTry: \"Open [app name]\"",
     "say_something": "Say something",
     "recognizing": "Recognizing",
     "unable_to_recognize": "I was unable to recognize your voice, try again",
@@ -34,7 +34,11 @@ en = {
     "del_confirm1": "Are you sure you want to delete",
     "del_confirm2": "from list?",
     "save_confirm": "Are you sure you want to save changes to config file?",
-    "exit_confirm": "If you close without saving, changes will be lost"
+    "exit_confirm": "If you close without saving, changes will be lost",
+    "listening": "Listening",
+    "app_added": "App added",
+    "app_edited": "App edited",
+    "app_removed": "App removed"
 }
 
 pl = {
@@ -51,7 +55,7 @@ pl = {
     "help": "Pomoc",
     "push_button": "Naciśnij przycisk i powiedz coś",
     "previous_command": "Poprzednie polecenie",
-    "try_commands": "Spróbuj: \"Cześć\"\nSpróbuj: \"Która jest godzina?\"\nSpróbuj: \"Otwórz notatnik\"",
+    "try_commands": "Spróbuj: \"Cześć\"\nSpróbuj: \"Która jest godzina?\"\nSpróbuj: \"Otwórz [nazwa aplikacji]\"",
     "say_something": "Powiedz coś",
     "recognizing": "Przetwarzanie",
     "unable_to_recognize": "Nie rozpoznałem co powiedziałeś, spróbuj jeszcze raz",
@@ -73,7 +77,11 @@ pl = {
     "del_confirm1": "Jesteś pewien, że chcesz usunąć",
     "del_confirm2": "z listy?",
     "save_confirm": "Jesteś pewien, że chcesz zapisać zmiany do pliku konfiguracyjnego?",
-    "exit_confirm": "Jeśli wyjdziesz bez zapisywania, zmiany zostaną utracone"
+    "exit_confirm": "Jeśli wyjdziesz bez zapisywania, zmiany zostaną utracone",
+    "listening": "Nasłuchiwanie",
+    "app_added": "Aplikacja została dodana",
+    "app_edited": "Aplikacja została zedytowana",
+    "app_removed": "Aplikacja została usunięta"
 }
 
 languages = {

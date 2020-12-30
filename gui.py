@@ -3,6 +3,8 @@ import sys
 import tkinter as tk
 from tkinter import PhotoImage
 from tkinter import filedialog, simpledialog, messagebox
+import commands as cmd
+import voice_engine as ve
 
 import config
 from langs import languages
@@ -94,11 +96,15 @@ def gui():
                     apps_temp[name] = path
                     apps_list.insert(tk.END, name.capitalize())
                     changes = True
+                    status_text.set(config.lang["app_added"])
                 else:
+                    status_text.set(config.lang["error"])
                     messagebox.showerror(config.lang["error"], f"{name.capitalize()} {config.lang['already_on_list']}")
             else:
+                status_text.set(config.lang["error"])
                 messagebox.showerror(config.lang["error"], config.lang["err_choose_exe"])
         else:
+            status_text.set(config.lang["error"])
             messagebox.showerror(config.lang["error"], config.lang["err_enter_app_name"])
 
     def edit_app(apps_list, apps_temp):
@@ -108,7 +114,9 @@ def gui():
         if path != "":
             apps_temp[name] = path
             changes = True
+            status_text.set(config.lang["app_edited"])
         else:
+            status_text.set(config.lang["error"])
             messagebox.showerror(config.lang["error"], config.lang["err_choose_exe"])
 
     def delete_app(apps_list, apps_temp):
@@ -120,6 +128,7 @@ def gui():
             del apps_temp[name]
             apps_list.delete(apps_list.curselection())
             changes = True
+            status_text.set(config.lang["app_removed"])
 
     def save_config_to_file(new_apps_list, new_username, new_lang):
         save_confirmed = messagebox.askyesno(config.lang["save_config"], config.lang["save_confirm"])
@@ -130,6 +139,13 @@ def gui():
             config.lang = languages[new_lang]
             config.save_conf()
             restart_app()
+
+    def listen():
+        audio = ve.take_command()
+        command = ve.recognize(audio)
+        cmd.process_command(command.lower())
+        previous_command_text.set(f"{config.lang['previous_command']}: {command}")
+        pass
 
     window = tk.Tk()
     window.title(config.lang["title"])
@@ -164,7 +180,7 @@ def gui():
 
     previous_command_text = tk.StringVar()
     previous_command = tk.Label(content_frame, textvariable=previous_command_text)
-    previous_command_text.set(f"{config.lang['previous_command']}: what time is it")
+    previous_command_text.set(f"{config.lang['previous_command']}: ")
     previous_command.grid(row=1, padx=10, pady=5)
     previous_command.configure(font=("Arial", 10), fg="#696969")
 
@@ -175,7 +191,7 @@ def gui():
     try_commands.configure(font=("Arial", 10), fg="#696969")
 
     listen_button_image = PhotoImage(file=r"images/microphone.png")
-    listen_button = tk.Button(content_frame, image=listen_button_image, relief=tk.FLAT, command=None)
+    listen_button = tk.Button(content_frame, image=listen_button_image, relief=tk.FLAT, command=listen)
     listen_button.grid(row=3, padx=10, pady=5)
 
     status_bar = tk.Frame(window)
@@ -183,7 +199,6 @@ def gui():
 
     status_text = tk.StringVar()
     status = tk.Label(status_bar, bd=1, textvariable=status_text, relief=tk.SUNKEN)
-    status_text.set("Status bar")
     status.pack(fill=tk.X)
 
     window.config(menu=dropdown_menu)

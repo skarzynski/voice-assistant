@@ -8,6 +8,14 @@ username = "user"
 lang = langs.en
 apps = dict()
 weatherapi_key = "5e8d4bc583894415b4f111323203012"
+# spotify_device_id = "b94fedc7a7cbd561ea2fdef64d3e8a6de508f171"
+spotify_token = "BQCOhCJNvPASCNY8TiWAeJ9xnP79km7jhQNh9u8zLznRYzjVonYKNzT7IqjwhI0ZSKvMjI479gApjGfE4ENjOh4YTNuErhcwfzgl8xMO_2Hmb5qkLBXRw1q2Sz_brrUMd5_ecjC0m3xB-hSQuiuvbnz1dg"
+spotify_api_url = "https://api.spotify.com/v1/me/player"
+spotify_headers = {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {spotify_token}"
+        }
 
 
 def init_conf():

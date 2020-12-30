@@ -4,7 +4,6 @@ import datetime
 import os
 import webbrowser
 import requests
-import json
 
 
 def process_command(command):
@@ -50,13 +49,36 @@ def process_command(command):
     elif "how is the weather" in command:
         get_response = requests.get(f"http://api.weatherapi.com/v1/current.json?key={config.weatherapi_key}&q=auto:ip")
         weather = get_response.json()
-        if get_response.status_code != "400":
+        if get_response.status_code == "200":
             response = f"Today in {weather['location']['name']} the temperature is {weather['current']['temp_c']} degrees and it's gonna be {weather['current']['condition']['text']}"
             ve.response(response)
         elif get_response.status_code == "400":
             ve.response(weather['error']['message'])
         else:
             ve.response("Unknown error occurred")
+    elif "play" in command:
+        url = f"{config.spotify_api_url}/play"
+        requests.put(url=url, headers=config.spotify_headers)
+    elif "pause" in command or "stop" in command:
+        url = f"{config.spotify_api_url}/pause"
+        requests.put(url=url, headers=config.spotify_headers)
+    elif "next" in command:
+        url = f"{config.spotify_api_url}/next"
+        requests.post(url=url, headers=config.spotify_headers)
+    elif "previous" in command:
+        url = f"{config.spotify_api_url}/previous"
+        requests.post(url=url, headers=config.spotify_headers)
+    elif "volume" in command:
+        percent = int(command.replace("volume ", ""))
+        url = f"{config.spotify_api_url}/volume?volume_percent={percent}"
+        requests.put(url=url, headers=config.spotify_headers)
+    elif "what is the song" in command:
+        url = f"{config.spotify_api_url}/currently-playing"
+        get_response = requests.get(url=url, headers=config.spotify_headers)
+        song = get_response.json()
+        response = f"You are listening {song['item']['name']} by {song['item']['artists'][0]['name']}"
+        ve.response(response)
+
 
 
 def open_app(app_name):

@@ -16,7 +16,7 @@ def recognize(audio):
     recognizer = sr.Recognizer()
     try:
         print(f"{lang['recognizing']}...")
-        stmt = recognizer.recognize_google(audio, language=lang["in_lang"])
+        stmt = recognizer.recognize_google(audio, language="en-in")
         # response(f"You said: {stmt}")
         return stmt
     except Exception as e:
@@ -26,7 +26,7 @@ def recognize(audio):
 
 
 def response(text):
-    tts = gtts.gTTS(text=text, lang=lang["out_lang"])
+    tts = gtts.gTTS(text=text, lang="en")
     file = 'response.mp3'
     tts.save(file)
     playsound.playsound(file)

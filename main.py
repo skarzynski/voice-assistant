@@ -1,5 +1,3 @@
-import voice_engine as ve
-import configparser
 import config
 from gui import gui
 

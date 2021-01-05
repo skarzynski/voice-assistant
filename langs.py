@@ -16,7 +16,21 @@ en = {
     "say_something": "Say something",
     "recognizing": "Recognizing",
     "unable_to_recognize": "I was unable to recognize your voice, try again",
-    "all_commands": "Hello\nWhat time is it?\nOpen [app]\nOther commands",
+    "all_commands": "Hello\n"
+                    "What time is it?\n"
+                    "Open [app name]\n"
+                    "Search Google\n"
+                    "Open Google\n"
+                    "Open YouTube\n"
+                    "Change my username\n"
+                    "How is the weather in [city name]?\n"
+                    "How is the weather?\n"
+                    "Play\n"
+                    "Pause/Stop\n"
+                    "Next\n"
+                    "Previous\n"
+                    "Volume [value between 0 and 100]\n"
+                    "What is the song?",
     "language": "Language",
     "username": "Username",
     "restart": "Restart",
@@ -55,11 +69,25 @@ pl = {
     "help": "Pomoc",
     "push_button": "Naciśnij przycisk i powiedz coś",
     "previous_command": "Poprzednie polecenie",
-    "try_commands": "Spróbuj: \"Cześć\"\nSpróbuj: \"Która jest godzina?\"\nSpróbuj: \"Otwórz [nazwa aplikacji]\"",
+    "try_commands": "Spróbuj: \"Hello\"\nSpróbuj: \"What time is it?\"\nSpróbuj: \"Open [nazwa aplikacji]\"",
     "say_something": "Powiedz coś",
     "recognizing": "Przetwarzanie",
     "unable_to_recognize": "Nie rozpoznałem co powiedziałeś, spróbuj jeszcze raz",
-    "all_commands": "Cześć\nKtóra jest godzina?\nOtwórz [aplikacja]\nPozostałe polecenia",
+    "all_commands": "Hello\n"
+                    "What time is it?\n"
+                    "Open [nazwa aplikacji]\n"
+                    "Search Google\n"
+                    "Open Google\n"
+                    "Open YouTube\n"
+                    "Change my username\n"
+                    "How is the weather in [miasto]?\n"
+                    "How is the weather?\n"
+                    "Play\n"
+                    "Pause/Stop\n"
+                    "Next\n"
+                    "Previous\n"
+                    "Volume [wartość między 0 a 100]\n"
+                    "What is the song?",
     "language": "Język",
     "username": "Nazwa użytkownika",
     "restart": "Uruchom ponownie",

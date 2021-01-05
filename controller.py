@@ -80,7 +80,6 @@ def process_command(command):
         ve.response(response)
 
 
-
 def open_app(app_name):
     if app_name in config.apps:
         ve.response(f"Opening {app_name}")

@@ -3,7 +3,7 @@ import sys
 import tkinter as tk
 from tkinter import PhotoImage
 from tkinter import filedialog, simpledialog, messagebox
-import commands as cmd
+import controller
 import voice_engine as ve
 
 import config
@@ -143,7 +143,7 @@ def gui():
     def listen():
         audio = ve.take_command()
         command = ve.recognize(audio)
-        cmd.process_command(command.lower())
+        controller.process_command(command.lower())
         previous_command_text.set(f"{config.lang['previous_command']}: {command}")
         pass
 

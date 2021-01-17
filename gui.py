@@ -22,6 +22,7 @@ def gui():
         global modal_window
         modal_window = tk.Toplevel(window)
         modal_window.minsize(400, 400)
+        modal_window.resizable(False, False)
         modal_window.transient(window)
         modal_window.protocol("WM_DELETE_WINDOW", close_modal)
 

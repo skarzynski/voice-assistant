@@ -25,7 +25,6 @@ def process_command(command):
         ve.response("Opening google")
     elif "open youtube" in command:
         webbrowser.open_new_tab("https://youtube.com")
-        webbrowser.open_new_tab("test")
         ve.response("Opening youtube")
     elif "open" in command:
         app_name = command.replace("open ", "")
